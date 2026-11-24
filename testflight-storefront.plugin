@@ -4,7 +4,8 @@
 
 [Rewrite]
 # TestFlight 安装接口：把响应正文里的 storefrontId 改成国区 143465（后缀 -19,29 与原版保持一致）
-^https:\/\/testflight\.apple\.com\/v2\/accounts\/.*\/apps\/\d*\/builds\/\d*\/install$ url response-body "storefrontId"\s*:\s*[^,]*, "storefrontId":"143465-19,29",
+# 匹配写法兼容两种返回值：字符串 "143441-1,29" 或纯数字 143441
+^https:\/\/testflight\.apple\.com\/v2\/accounts\/.*\/apps\/\d*\/builds\/\d*\/install$ url response-body "storefrontId"\s*:\s*("[^"]*"|\d+) "storefrontId":"143465-19,29"
 
 [MITM]
 hostname = testflight.apple.com
